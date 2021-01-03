@@ -8,11 +8,14 @@ public class Algorithm {
     private ArrayList<Hardware> list = new ArrayList<>();
     private LKW lkw1, lkw2;
 
+    private Scanner sc = new Scanner(System.in);
+
     public Algorithm(){
         System.out.println("LKW-Beladung wird berechnet.");
         System.out.println("Liste wird zusammengesetllt.");
         System.out.println();
 
+        //LKW werden erstellt und erhalten ihre maximale Last und das Gewicht des Fahrers.
         lkw1 = new LKW(72400f, 1100000f);
         lkw2 = new LKW(85700f, 1100000f);
 
@@ -46,8 +49,14 @@ public class Algorithm {
 
         System.out.println("Was noch im Lager liegt: ");
         printList();
+
+        sc.close();
     }
 
+    /*
+        Sortiert die temporäre Liste nach dem Nutzwert um in der nächsten Methode jeweils
+        die Objekte mit gleichem Nutzwert zu vergleichen.
+     */
     public void sortiereNutzwert(){
         int n = list.size();
         for (int i = 0; i < n-1; i++){
@@ -63,9 +72,19 @@ public class Algorithm {
        // printList();
     }
 
+    /*
+        Mit dieser Methode werden die LKW's beladen. Die sortierte liste wird solange
+        durchgegangen, bis die Lastgrenze des LKW erreicht wurde
+        (Gewicht des Fahrers wurde beachtet). Die Objekte werden einzeln hinzugefügt und daraufhin
+        aus der temporären Liste entfernt.
+        Nachdem der LKW beladen ist, wird das Ergebnis ausgegeben und der Nutzer kann entscheiden,
+        ob eine Liste mit allen Objekten im LKW ausgegeben werden soll.
+        Nach dieser Entscheidung wird das Gewicht und der Nutzwert der Ladung angezeigt.
+     */
     public void lkwBeladen(LKW lkw){
-        float gewicht = 0;
-        boolean toggle = true;
+        float gewicht = 0; //Das Gewicht der Ladung
+        boolean toggle = true; //Solange "true" wird der LKW beladen
+
         while(toggle){
             for(int i = 0; i < list.size(); i++) {
                 if (lkw.getMaxLast() > gewicht + list.get(i).getGewicht()) {
@@ -83,16 +102,28 @@ public class Algorithm {
             }
         }
 
-        //lkw.printLKWList();
+        System.out.println("Ladeliste anzeigen lassen: <ja> / <nein>");
+        System.out.println("Eingabe: ");
+
+        String line = sc.nextLine();
+        if(line.equalsIgnoreCase("ja"))
+            lkw.printLKWList();
 
         System.out.println("Gewicht der Ladung ist " + (gewicht/1000) + "kg | " +(lkw.getMaxLast()/1000) + "kg");
         System.out.println("Nutzwert der Ladung ist: " + lkw.getKumNutzwert());
         System.out.println();
     }
 
+    /*
+        Hier wird überprüft, ob zwei Gegenstände denselben Nutzwert haben. Ist das der Fall,
+        wird das Gewicht beider Komponenten überprüft. Daraufhin wird das Objekt mit höherem
+        Gewicht aus der Liste entfernt.
+     */
     public void checkNutzwert(){
         for(int i = 0; i < list.size()-1; i++){
+            //prüfen des Objektes und dem nächsten in der Liste
             if(list.get(i).getNutzwert() == list.get(i+1).getNutzwert()){
+                //Abgleich der Gewichte und entfernen des schwereren.
                 if(list.get(i).getGewicht() > list.get(i+1).getGewicht())
                     list.remove(i);
                 else
@@ -101,6 +132,10 @@ public class Algorithm {
         }
     }
 
+    /*
+        Sortieren mithilfe des bubble sorts. Hier wird nach dem Gewicht sortiert
+        um die leichtesten Gegenstände an erster Stelle zu haben.
+     */
     public void sortiereGewicht(){
         int n = list.size();
         for (int i = 0; i < n-1; i++) {
@@ -116,6 +151,10 @@ public class Algorithm {
         //printList();
     }
 
+    /*
+        Ausgabe der Liste aller Teile die im Lager sind. Die Liste ist eine temporäre Liste und wird
+        im Verlauf des Programmes verändert.
+     */
     public void printList(){
         for(int i = 0; i < list.size(); i++){
             System.out.println("Nutzwert: " +list.get(i).getNutzwert() + " | Gewicht: " + list.get(i).getGewicht() +
