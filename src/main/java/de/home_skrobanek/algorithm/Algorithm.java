@@ -1,6 +1,7 @@
 package de.home_skrobanek.algorithm;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Algorithm {
 
@@ -8,6 +9,10 @@ public class Algorithm {
     private LKW lkw1, lkw2;
 
     public Algorithm(){
+        System.out.println("LKW-Beladung wird berechnet.");
+        System.out.println("Liste wird zusammengesetllt.");
+        System.out.println();
+
         lkw1 = new LKW(72400f, 1100000f);
         lkw2 = new LKW(85700f, 1100000f);
 
@@ -34,23 +39,13 @@ public class Algorithm {
         sortiereGewicht();
 
         //Beladen der LKW's
+        System.out.println("Erster LKW wird beladen:");
         lkwBeladen(lkw1);
+        System.out.println("Zweiter LKW wird beladen:");
         lkwBeladen(lkw2);
 
         System.out.println("Was noch im Lager liegt: ");
         printList();
-    }
-
-    public float getNutzwertDurchschnitt(){
-        int gesamt = 0;
-        float durchschnitt = 0;
-        for(int i = 0; i < list.size(); i++){
-            gesamt += list.get(i).getNutzwert();
-        }
-
-        durchschnitt = gesamt/list.size();
-
-        return durchschnitt;
     }
 
     public void sortiereNutzwert(){
@@ -72,24 +67,25 @@ public class Algorithm {
         float gewicht = 0;
         boolean toggle = true;
         while(toggle){
-        for(int i = 0; i < list.size(); i++) {
-            if (lkw.getMaxLast() > gewicht + list.get(i).getGewicht()) {
-                if(list.get(i).getAnzahl() > 0) {
-                    gewicht += list.get(i).getGewicht();
-                    list.get(i).setAnzahl(list.get(i).getAnzahl() - 1);
-                    lkw.getList().add(new Hardware(list.get(i).getNutzwert(),list.get(i).getGewicht(),1, list.get(i).getName()));
+            for(int i = 0; i < list.size(); i++) {
+                if (lkw.getMaxLast() > gewicht + list.get(i).getGewicht()) {
+                    if(list.get(i).getAnzahl() > 0) {
+                        gewicht += list.get(i).getGewicht();
+                        list.get(i).setAnzahl(list.get(i).getAnzahl() - 1);
+                        lkw.getList().add(new Hardware(list.get(i).getNutzwert(),list.get(i).getGewicht(),1, list.get(i).getName()));
+                    }
+                    else
+                        list.remove(i);
                 }
-                else
-                    list.remove(i);
+                else{
+                    toggle = false;
+                }
             }
-            else{
-                toggle = false;
-            }
-        }
         }
 
-       // lkw.printLKWList();
-        System.out.println("Gewicht der Ladung ist " + gewicht + "g | " +lkw.getMaxLast() + "g");
+        //lkw.printLKWList();
+
+        System.out.println("Gewicht der Ladung ist " + (gewicht/1000) + "kg | " +(lkw.getMaxLast()/1000) + "kg");
         System.out.println("Nutzwert der Ladung ist: " + lkw.getKumNutzwert());
         System.out.println();
     }
