@@ -43,15 +43,8 @@ public class Algorithm {
         list.add(new Hardware(45, 1690, 540, "Tablet outdoor klein"));
         list.add(new Hardware(68, 1980, 370, "Tablet outdoor groß"));
 
-
-        //Sortiere die Liste nach dem Nutzwert
-        sortiereNutzwert();
-
-        //Überprüfe ob zwei Objekte denselben Nutzwert haben und entferne das Objekt mit mehr Gewicht
-        checkNutzwert();
-
-        //Sortiere nach Gewicht
-        sortiereGewicht();
+        //starten des Algorithmus
+        berechneVerteilung();
 
         //Beladen der LKW's
         System.out.println("Erster LKW wird beladen:");
@@ -60,17 +53,27 @@ public class Algorithm {
         System.out.println("Zweiter LKW wird beladen:");
         lkwBeladen(lkw2);
 
-        System.out.println("Was noch im Lager liegt: ");
-        printList();
+        System.out.println("Ausgeben was noch im Lager ist? <ja> / <nein>");
+        System.out.println("Eingabe: ");
+        String line = sc.nextLine();
+
+        if(line.equalsIgnoreCase("ja"))
+            printList();
 
         sc.close();
     }
 
     /*
-        Sortiert die temporäre Liste nach dem Nutzwert um in der nächsten Methode jeweils
-        die Objekte mit gleichem Nutzwert zu vergleichen.
+        In dieser Methode ist der eigentliche Algorithmus. Dieser
+        besteht aus zwei bubble sorts und einer Überprüfung des Nutzwertes
+        mit anschließender Entfernung aus der Liste.
      */
-    public void sortiereNutzwert(){
+    public void berechneVerteilung(){
+
+        /*
+            In der ersten Schleife wird die Liste nach dem Nutzwert sortiert.
+            Diese Sortierung folgt durch einen Bubble-Sort.
+         */
         int n = list.size();
         for (int i = 0; i < n-1; i++){
             for (int j = 0; j < n-i-1; j++) {
@@ -82,7 +85,41 @@ public class Algorithm {
                 }
             }
         }
-       // printList();
+
+        /*
+            Im nächsten Teil der Methode wird die Liste auf Objekte überprüft,
+            die denselben Nutzwert haben. Haben diese Objekte jetzt ein anderes
+            Gewicht, wird das Objekt mit dem höheren Gewicht entfernt.
+         */
+        for(int i = 0; i < list.size()-1; i++){
+            //prüfen des Objektes und dem nächsten in der Liste
+            if(list.get(i).getNutzwert() == list.get(i+1).getNutzwert()){
+                //Abgleich der Gewichte und entfernen des schwereren.
+                if(list.get(i).getGewicht() > list.get(i+1).getGewicht())
+                    list.remove(i);
+                else
+                    list.remove(i+1);
+            }
+        }
+
+        /*
+            Im letzten Schritt wird die Liste nach dem Gewicht sortiert.
+            Dadurch wird sichergestellt, dass zuerst die Geräte mit höchstmöglichem
+            Nutzwert und kleinsten Gewicht eingelagert werden. Durch das kleinere
+            Gewicht kann man mehr mitnehmen und einen höheren Nutzwert erzielen.
+         */
+        n = list.size();
+        for (int i = 0; i < n-1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (list.get(j).getGewicht() > list.get(j + 1).getGewicht()) {
+                    // swap arr[j+1] and arr[j]
+                    Hardware temp = list.get(j);
+                    list.set(j, list.get(j + 1));
+                    list.set(j + 1, temp);
+                }
+            }
+        }
+
     }
 
     /**
@@ -128,43 +165,6 @@ public class Algorithm {
         System.out.println("Gewicht der Ladung ist " + (gewicht/1000) + "kg | " +(lkw.getMaxLast()/1000) + "kg");
         System.out.println("Nutzwert der Ladung ist: " + lkw.getKumNutzwert());
         System.out.println();
-    }
-
-    /*
-        Hier wird überprüft, ob zwei Gegenstände denselben Nutzwert haben. Ist das der Fall,
-        wird das Gewicht beider Komponenten überprüft. Daraufhin wird das Objekt mit höherem
-        Gewicht aus der Liste entfernt.
-     */
-    public void checkNutzwert(){
-        for(int i = 0; i < list.size()-1; i++){
-            //prüfen des Objektes und dem nächsten in der Liste
-            if(list.get(i).getNutzwert() == list.get(i+1).getNutzwert()){
-                //Abgleich der Gewichte und entfernen des schwereren.
-                if(list.get(i).getGewicht() > list.get(i+1).getGewicht())
-                    list.remove(i);
-                else
-                    list.remove(i+1);
-            }
-        }
-    }
-
-    /*
-        Sortieren mithilfe des bubble sorts. Hier wird nach dem Gewicht sortiert
-        um die leichtesten Gegenstände an erster Stelle zu haben.
-     */
-    public void sortiereGewicht(){
-        int n = list.size();
-        for (int i = 0; i < n-1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (list.get(j).getGewicht() > list.get(j + 1).getGewicht()) {
-                    // swap arr[j+1] and arr[j]
-                    Hardware temp = list.get(j);
-                    list.set(j, list.get(j + 1));
-                    list.set(j + 1, temp);
-                }
-            }
-        }
-        //printList();
     }
 
     /*
