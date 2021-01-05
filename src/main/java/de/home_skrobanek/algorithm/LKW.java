@@ -1,7 +1,23 @@
+/**
+ *
+ * @author
+ *      Timo Skrobanek
+ *
+ * @description
+ *      Abgabe für den Programmierwettbewerb bei GetInIT und BWI.
+ *
+ * @date
+ *      05.01.2021
+ */
 package de.home_skrobanek.algorithm;
 
 import java.util.ArrayList;
 
+/*
+    Diese Datenklasse stellt den LKW dar und
+    speichert jediglich wichtige Daten wie
+    Gewicht und maximale Last.
+ */
 public class LKW {
 
     private float fahrerGewicht;//kg
@@ -15,6 +31,9 @@ public class LKW {
         list = new ArrayList<>();
     }
 
+    /*
+        Gibt in der Konsole aus, was im LKW geladen ist.
+     */
     public void printLKWList(){
         for(int i = 0; i< list.size(); i++){
             System.out.println("Nutzwert: " +list.get(i).getNutzwert() + " | Gewicht: " + list.get(i).getGewicht() +
@@ -23,6 +42,7 @@ public class LKW {
 
     }
 
+    //gibt den kummulierten Nutzwert der Ladung aus
     public int getKumNutzwert(){
         int kumNutzwert = 0;
         for(int i = 0; i < list.size(); i++){

@@ -1,5 +1,23 @@
+/**
+ *
+ * @author
+ *      Timo Skrobanek
+ *
+ * @description
+ *      Abgabe für den Programmierwettbewerb bei GetInIT und BWI.
+ *
+ * @date
+ *      05.01.2021
+ */
 package de.home_skrobanek.algorithm;
 
+/*
+    Mit dieser Klasse kann ein Gerät als
+    Hardware für das Programm verwendbar
+    gemacht werden. Hier werden jediglich
+    wichtige Informationen dazu
+    zwischengespeichert.
+ */
 public class Hardware {
 
     private int nutzwert;

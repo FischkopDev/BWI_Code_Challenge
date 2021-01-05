@@ -16,11 +16,14 @@ beider LKW ausgegeben.</p>
 
 <h4>Verwendung</h4>
 <p>Das Programm kann einfach in der Konsole ausgeführt werden und erklärt dem Nutzer während
-der Nutzung wie es funktioniert bzw welche EIngaben vom Benutzer erwartet werden.</p>
+der Nutzung wie es funktioniert bzw welche EIngaben vom Benutzer erwartet werden. Beim
+Github Release ist somit eine Jar und eine für das jeweilige Betriebssystem
+ausführbare batch/sh Datei vorhanden.</p>
 
 <h4>Programminformationen</h4>
 <p>Für das Projekt habe ich das JDK 14 verwendet. Kompatibilität sollte
-jedoch bis JDK/JRE 1.8 bestehen.</p>
+jedoch bis JDK/JRE 1.8 bestehen. Das Projekt wurde in Intelij als Gradle Projekt
+umgesetzt.</p>
 
 <h4>Author</h4>
 

@@ -31,17 +31,33 @@ public class Algorithm {
         lkw1 = new LKW(72400f, 1100000f);
         lkw2 = new LKW(85700f, 1100000f);
 
-        //Laden aus einer Datenbank könnte hiermit möglich sein.
-        list.add(new Hardware(40, 2451,205,"Notebook Büro 13\""));
-        list.add(new Hardware(35, 2978,420, "Notebook 14\""));
-        list.add(new Hardware(80, 3625, 450, "Notebook Outdoor"));
-        list.add(new Hardware(30, 717, 60,"Telefon Büro"));
-        list.add(new Hardware(60, 988, 157, "Telefon Outdoor"));
-        list.add(new Hardware(65, 1220, 220, "Mobiltelefon Heavy Duty"));
-        list.add(new Hardware(40, 1405, 620, "Tablet Büro klein"));
-        list.add(new Hardware(40, 1455, 250, "Tablet Büro groß"));
-        list.add(new Hardware(45, 1690, 540, "Tablet outdoor klein"));
-        list.add(new Hardware(68, 1980, 370, "Tablet outdoor groß"));
+        System.out.println("Vorhande Lagerliste verwenden ? <ja> / <nein>");
+        System.out.println("Eingabe: ");
+
+        String input = sc.nextLine();
+
+        if(input.equalsIgnoreCase("ja")) {
+
+            //Laden aus einer Datenbank könnte hiermit möglich sein.
+            list.add(new Hardware(40, 2451, 205, "Notebook Büro 13\""));
+            list.add(new Hardware(35, 2978, 420, "Notebook 14\""));
+            list.add(new Hardware(80, 3625, 450, "Notebook Outdoor"));
+            list.add(new Hardware(30, 717, 60, "Telefon Büro"));
+            list.add(new Hardware(60, 988, 157, "Telefon Outdoor"));
+            list.add(new Hardware(65, 1220, 220, "Mobiltelefon Heavy Duty"));
+            list.add(new Hardware(40, 1405, 620, "Tablet Büro klein"));
+            list.add(new Hardware(40, 1455, 250, "Tablet Büro groß"));
+            list.add(new Hardware(45, 1690, 540, "Tablet outdoor klein"));
+            list.add(new Hardware(68, 1980, 370, "Tablet outdoor groß"));
+
+        }
+        else{
+            System.out.println("Füge jetzt Hardware hinzu und erstelle deine eigene Liste.");
+            System.out.println("Es müssen mindestens 4 Gegenstände vorhanden sein.");
+            hardwareHinzufuegen();
+        }
+
+        System.out.println("Verteilung wird berechnet.");
 
         //starten des Algorithmus
         berechneVerteilung();
@@ -60,7 +76,44 @@ public class Algorithm {
         if(line.equalsIgnoreCase("ja"))
             printList();
 
-        sc.close();
+        //sc.close();
+    }
+
+    public void hardwareHinzufuegen(){
+        try {
+            System.out.println("Name der Hardware: ");
+            String name = sc.nextLine();
+
+        /*
+            Umsetzung mithilfe von ParseInt, ParseFloat, ... weil ansonsten sc.nextLine() nicht mehr geht.
+            Problem innerhalb des JDK:
+            https://stackoverflow.com/questions/23450524/java-scanner-doesnt-wait-for-user-input
+            "[...]The problem is that nextInt() does not consume the '\n'[...]"
+        */
+            System.out.println("Gewicht der Hardware (Gramm): ");
+            float gewicht = Float.parseFloat(sc.nextLine());
+
+            System.out.println("Nutzwert der Hardware: ");
+            int nutzwert = Integer.parseInt(sc.nextLine());
+
+            System.out.println("Anzahl der Hardware: ");
+            int anzahl = Integer.parseInt(sc.nextLine());
+
+            list.add(new Hardware(nutzwert, gewicht, anzahl, name));
+
+            System.out.println("Weitere Hardware hinzufügen? <ja> / <nein>");
+            System.out.println("Eingabe: ");
+
+            String input = sc.nextLine();
+            if (input.equalsIgnoreCase("ja")) {
+                hardwareHinzufuegen();
+            } else {
+                System.out.println("In der Liste sind jetzt " + list.size() + " Objekte.");
+            }
+        }catch(Exception e){
+            System.out.println("Bitte nur gültige Eingaben für Name, Anzahl, Nutzwert oder Gewicht eingeben.");
+            hardwareHinzufuegen();
+        }
     }
 
     /*
@@ -97,6 +150,8 @@ public class Algorithm {
                 //Abgleich der Gewichte und entfernen des schwereren.
                 if(list.get(i).getGewicht() > list.get(i+1).getGewicht())
                     list.remove(i);
+                else if(list.get(i).getGewicht() == list.get(i+1).getGewicht())
+                    continue;
                 else
                     list.remove(i+1);
             }
@@ -144,7 +199,8 @@ public class Algorithm {
                     if(list.get(i).getAnzahl() > 0) {
                         gewicht += list.get(i).getGewicht();
                         list.get(i).setAnzahl(list.get(i).getAnzahl() - 1);
-                        lkw.getList().add(new Hardware(list.get(i).getNutzwert(),list.get(i).getGewicht(),1, list.get(i).getName()));
+                        lkw.getList().add(new Hardware(list.get(i).getNutzwert(),list.get(i).getGewicht(),1,
+                                list.get(i).getName()));
                     }
                     else
                         list.remove(i);
