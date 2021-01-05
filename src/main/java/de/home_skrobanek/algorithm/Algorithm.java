@@ -1,3 +1,14 @@
+/**
+ *
+ * @author
+ *      Timo Skrobanek
+ *
+ * @description
+ *      Abgabe für den Programmierwettbewerb bei GetInIT und BWI.
+ *
+ * @date
+ *      05.01.2021
+ */
 package de.home_skrobanek.algorithm;
 
 import java.util.ArrayList;
@@ -8,6 +19,7 @@ public class Algorithm {
     private ArrayList<Hardware> list = new ArrayList<>();
     private LKW lkw1, lkw2;
 
+    //Liest die Eingaben des Benutzers
     private Scanner sc = new Scanner(System.in);
 
     public Algorithm(){
@@ -44,6 +56,7 @@ public class Algorithm {
         //Beladen der LKW's
         System.out.println("Erster LKW wird beladen:");
         lkwBeladen(lkw1);
+        System.out.println("-------------------------");
         System.out.println("Zweiter LKW wird beladen:");
         lkwBeladen(lkw2);
 
@@ -72,7 +85,10 @@ public class Algorithm {
        // printList();
     }
 
-    /*
+    /**
+        @param lkw
+            Die Instanz eines LKW, welcher beladen werden soll.
+
         Mit dieser Methode werden die LKW's beladen. Die sortierte liste wird solange
         durchgegangen, bis die Lastgrenze des LKW erreicht wurde
         (Gewicht des Fahrers wurde beachtet). Die Objekte werden einzeln hinzugefügt und daraufhin

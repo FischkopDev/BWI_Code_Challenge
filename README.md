@@ -18,12 +18,8 @@ beider LKW ausgegeben.</p>
 <p>Das Programm kann einfach in der Konsole ausgeführt werden und erklärt dem Nutzer während
 der Nutzung wie es funktioniert bzw welche EIngaben vom Benutzer erwartet werden.</p>
 
-<h4>API</h4>
-Das Programm hat eine Schnittstelle um als API verwendet zu werden. Damit ist es möglich zbs.
-eine Anbindung an eine Datenbank zu programmieren oder eine GUI für erleichterte Programmierung 
-hinzuzufügen.
-
 <h4>Author</h4>
 
 <p>Das Programm wurde von mir geschrieben. Bei Problemen oder Ideen kann man mich unter folgenden 
-Möglichkeiten erreichen:<br><br>Timo Skrobanek<br>timo@home-skrobanek.de</p>
+Möglichkeiten erreichen:<br><br>Timo Skrobanek<br>
+Email: timo@home-skrobanek.de<br>Discord: Dr.Fischkopf#6752</p>
