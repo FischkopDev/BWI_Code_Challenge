@@ -18,6 +18,10 @@ beider LKW ausgegeben.</p>
 <p>Das Programm kann einfach in der Konsole ausgeführt werden und erklärt dem Nutzer während
 der Nutzung wie es funktioniert bzw welche EIngaben vom Benutzer erwartet werden.</p>
 
+<h4>Programminformationen</h4>
+<p>Für das Projekt habe ich das JDK 14 verwendet. Kompatibilität sollte
+jedoch bis JDK/JRE 1.8 bestehen.</p>
+
 <h4>Author</h4>
 
 <p>Das Programm wurde von mir geschrieben. Bei Problemen oder Ideen kann man mich unter folgenden 
