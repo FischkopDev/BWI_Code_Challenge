@@ -1,6 +1,6 @@
 <h3>Programmierwettbewerb</h3>
 <p>Das ist meine Abgabe zum Wettbewerb. Hier werde ich die Anwendung
-und den Aufbau meines Algorythmus erklären.</p>
+und den Aufbau meines Algorithmus erklären.</p>
 
 <h4>Aufbau</h4>
 <p>Zuerst wird die Liste aller benötigten Teile geladen. Dafür habe ich die 
