@@ -7,7 +7,7 @@
  *      Abgabe für den Programmierwettbewerb bei GetInIT und BWI.
  *
  * @date
- *      05.01.2021
+ *      07.01.2021
  */
 package de.home_skrobanek.algorithm;
 
@@ -31,7 +31,7 @@ public class Algorithm {
         lkw1 = new LKW(72400f, 1100000f);
         lkw2 = new LKW(85700f, 1100000f);
 
-        System.out.println("Vorhande Lagerliste verwenden ? <ja> / <nein>");
+        System.out.println("Lagerliste aus der PDF verwenden ? <ja> / <nein>");
         System.out.println("Eingabe: ");
 
         String input = sc.nextLine();
@@ -55,6 +55,7 @@ public class Algorithm {
             System.out.println("Füge jetzt Hardware hinzu und erstelle deine eigene Liste.");
             System.out.println("Es müssen mindestens 4 Gegenstände vorhanden sein.");
             hardwareHinzufuegen();
+
         }
 
         System.out.println("Verteilung wird berechnet.");
@@ -195,7 +196,7 @@ public class Algorithm {
 
         while(toggle){
             for(int i = 0; i < list.size(); i++) {
-                if (lkw.getMaxLast() > gewicht + list.get(i).getGewicht()) {
+                if (lkw.getMaxLast() > gewicht + list.get(i).getGewicht() && !list.isEmpty()) {
                     if(list.get(i).getAnzahl() > 0) {
                         gewicht += list.get(i).getGewicht();
                         list.get(i).setAnzahl(list.get(i).getAnzahl() - 1);
@@ -207,6 +208,7 @@ public class Algorithm {
                 }
                 else{
                     toggle = false;
+                    break;
                 }
             }
         }
